@@ -28,12 +28,9 @@ with tab_model:
 
     col21, col22 = st.columns(2)
     with col21:
-        cp = st.number_input('Chest Pain (Angina)', min_value=1, max_value=4, step=1)
-        with st.expander("Information"):
-            st.caption('''1: Typical Angina 
-                        \n2: Atypical Angina
-                        \n3: Non-Anginal Pain
-                        \n4: Asymptomatic''')
+        cp_select = ["1: Typical Angina", "2: Atypical Angina", "3: Non-Anginal Pain", "4: Asymptomatic"]
+        cp = int(st.selectbox("Chest Pain (Angina)", cp_select)[0])
+
     with col22:
         exang = 1 if st.selectbox('Exercise Induced Angina', ['Present', 'Not Present']) == 'Present' else 0
 
@@ -54,36 +51,29 @@ with tab_model:
     col41, col42, col43 = st.columns(3)
     with col41:    
         oldpeak = st.number_input('ST-segment Depression', min_value=-10.0, max_value=10.0, value=0.0, step=0.1)
-        slope = st.number_input('ST-segment Slope', min_value=1, max_value=3, step=1)
-        with st.expander("Information"):
-            st.caption('''1: Upsloping 
-                        \n2: Flat
-                        \n3: Downsloping''')
+        
+        slope_select = ["1: Upsloping", "2: Flat", "3: Downsloping"]
+        slope = int(st.selectbox('ST-segment Slope', slope_select)[0])
+
                 
     with col42:
         thalach = st.number_input('Maximum Heartrate', min_value=30, max_value=200, step=1)
-        restecg = st.number_input('Resting Electrocardiograph', min_value=0, max_value=2, step=1)
-        with st.expander("Information"):
-            st.caption('''0: Normal 
-                        \n1: ST-T Abnormalities
-                        \n2: Probable Hypertrophy''')    
+        
+        restecg_select = ["0: Normal", "1: ST-T Abnormalities", "2: Probable Hypertrophy"]
+        restecg = int(st.selectbox('Resting Electrocardiograph', restecg_select)[0])  
         
     with col43:
         ca = st.number_input('Coronary Arteries', min_value=0, max_value=3, step=1)
-        thal = st.number_input('Thalassemia', min_value=3, max_value=7, step=1)
-        with st.expander("Information"):
-            st.caption('''3: Normal 
-                        \n6: Fixed Defect
-                        \n7: Reversable Defect''')
+        
+        thal_select = ["3: Normal", "6: Fixed Defect", "7: Reversable Defect"]
+        thal = int(st.selectbox('Thalassemia', thal_select)[0])
+
 
     st.divider()
 
-    clicked = st.button('Predict', use_container_width=True)
-
-    result = ''
-    if clicked:
-        result = model.predict([[age, sex, cp, restbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]])
-        result = round(result[0], 2)
+    result = '0.00'
+    result = model.predict([[age, sex, cp, restbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]])
+    result = round(result[0], 2)
 
     st.info(f"Heart Disease Risk: {result}")    
     st.divider()
