@@ -1,5 +1,6 @@
 import streamlit as st
 import pickle
+import pandas as pd
 
 model = pickle.load(open('model.pkl', 'rb'))
 
@@ -57,13 +58,13 @@ with tab_model:
         slope = int(st.selectbox('ST-segment Slope', slope_select)[0])
                 
     with col42:
-        thalach = st.number_input('Maximum Heartrate', min_value=30, max_value=200, value=180, step=1)
+        thalach = st.number_input('Maximum Heartrate (bpm)', min_value=30, max_value=230, value=180, step=1)
         
         restecg_select = ["0: Normal", "1: ST-T Abnormalities", "2: Probable Hypertrophy"]
         restecg = int(st.selectbox('Resting Electrocardiograph', restecg_select)[0])  
         
     with col43:
-        ca = st.number_input('Coronary Arteries', min_value=0, max_value=3, step=1)
+        ca = st.number_input('Coronary Arteries by Fluoroscopy', min_value=0, max_value=3, step=1)
         
         thal_select = ["3: Normal", "6: Fixed Defect", "7: Reversable Defect"]
         thal = int(st.selectbox('Thalassemia', thal_select)[0])
@@ -78,4 +79,24 @@ with tab_model:
     st.divider()
     
 with tab_figures:
-    st.markdown("TODO")
+    cm_standard = pickle.load(open('cm_standard.pkl', 'rb'))
+    df_standard = pd.DataFrame(cm_standard).transpose()
+    cm_less = pickle.load(open('cm_less.pkl', 'rb'))
+    df_less = pd.DataFrame(cm_less).transpose()
+    cm_more = pickle.load(open('cm_more.pkl', 'rb'))
+    df_more = pd.DataFrame(cm_more).transpose()
+    
+    st.caption("Figure 1: Confusion Matrix for Standard CNN")
+    st.image('figures/cm_standard.png')
+    st.caption("Table 1: Classification Report for Standard CNN")
+    st.dataframe(df_standard, width=683)
+    
+    st.caption("Figure 2: Confusion Matrix for Less Attributes CNN")
+    st.image('figures/cm_less.png')
+    st.caption("Table 2: Classification Report for Less Attributes CNN")
+    st.dataframe(df_less, width=683)
+    
+    st.caption("Figure 3: Confusion Matrix for More Attributes CNN")
+    st.image('figures/cm_more.png')
+    st.caption("Table 3: Classification Report for More Attributes CNN")
+    st.dataframe(df_more, width=683)
