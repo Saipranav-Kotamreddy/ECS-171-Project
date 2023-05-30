@@ -32,18 +32,19 @@ with tab_model:
         cp = int(st.selectbox("Chest Pain (Angina)", cp_select)[0])
 
     with col22:
-        exang = 1 if st.selectbox('Exercise Induced Angina', ['Present', 'Not Present']) == 'Present' else 0
+        exang_select = ["1: Present", "2: Not Present"]
+        exang = int(st.selectbox('Exercise Induced Angina', exang_select)[0])
 
     st.divider()
     st.markdown("<h5 style='text-align: center; color: teal;'>Blood Related Attributes</h5>", unsafe_allow_html=True)
 
     col31, col32, col33 = st.columns(3)
     with col31:
-        restbps = st.number_input('Resting Bloodpressure (mmHg)', min_value=40, max_value=200, step=1)
+        restbps = st.number_input('Resting Bloodpressure (mmHg)', min_value=40, max_value=200, value=120, step=1)
     with col32:
-        chol = st.number_input('Cholesterol (mg/dL)', min_value=25, max_value=300, step=1)
+        chol = st.number_input('Cholesterol (mg/dL)', min_value=25, max_value=300, value=175, step=1)
     with col33:
-        fbs = st.number_input('Fasting Blood Sugar (mg/dL)', min_value=25, max_value=200, step=1)
+        fbs = st.number_input('Fasting Blood Sugar (mg/dL)', min_value=25, max_value=200, value=90, step=1)
         
     st.divider()
     st.markdown("<h5 style='text-align: center; color: teal;'>Other Attributes</h5>", unsafe_allow_html=True)
@@ -54,10 +55,9 @@ with tab_model:
         
         slope_select = ["1: Upsloping", "2: Flat", "3: Downsloping"]
         slope = int(st.selectbox('ST-segment Slope', slope_select)[0])
-
                 
     with col42:
-        thalach = st.number_input('Maximum Heartrate', min_value=30, max_value=200, step=1)
+        thalach = st.number_input('Maximum Heartrate', min_value=30, max_value=200, value=180, step=1)
         
         restecg_select = ["0: Normal", "1: ST-T Abnormalities", "2: Probable Hypertrophy"]
         restecg = int(st.selectbox('Resting Electrocardiograph', restecg_select)[0])  
@@ -67,7 +67,6 @@ with tab_model:
         
         thal_select = ["3: Normal", "6: Fixed Defect", "7: Reversable Defect"]
         thal = int(st.selectbox('Thalassemia', thal_select)[0])
-
 
     st.divider()
 
