@@ -2,7 +2,7 @@ import streamlit as st
 import pickle
 import pandas as pd
 
-model = pickle.load(open('model.pkl', 'rb'))
+model = pickle.load(open('mlp_model.pkl', 'rb'))
 
 tab_model, tab_figures = st.tabs(["Model", "Figures"])
 
@@ -71,7 +71,7 @@ with tab_model:
 
     st.divider()
 
-    result = '0.00'
+    result = '0'
     result = model.predict([[age, sex, cp, restbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]])
     result = round(result[0], 2)
 
