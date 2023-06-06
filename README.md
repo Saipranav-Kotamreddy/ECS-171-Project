@@ -2,7 +2,7 @@
 Heart Disease Risk Model + Calculator
 
 ### Before Installation
-Please note that there is a LIVE version of our webapp hosted by Streamlit that can be located here:
+Please note that there is a LIVE version of our webapp hosted by Streamlit that can be found here:
 https://hdmodel.streamlit.app/
 
 This is the version we used for our project demonstration. It is hosted from a separate repository for organizational purposes, but the ``webapp.py`` and ``.pkl`` files are identical to their counterparts on the repository linked in the report. That repository can be accessed by clicking the small GitHub icon in the top right corner. Streamlit hosts their webapps directly from repositories.
